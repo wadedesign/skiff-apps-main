@@ -1,0 +1,17 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "declarationDir": "dist/",
+        "tsBuildInfoFile": "dist/.tsbuildinfo",
+        "jsx": "react-jsx",
+        "module": "ES2022",
+        "target": "ES2020"
+    },
+    "references": [
+        { "path" : "../nightwatch-ui"},
+        { "path" : "../skiff-crypto"},
+        { "path" : "../skiff-graphql"},
+        { "path" : "../skiff-front-graphql"},
+        { "path" : "../skiff-utils"}
+    ]
+}

@@ -1,0 +1,86 @@
+query getNumUnread($label: String!) {
+  unread(label: $label)
+}
+
+query getMailFilters($request: GetMailFiltersInput) {
+  mailFilters(request: $request) {
+    actions {
+      actionType
+      serializedData
+    }
+    filter {
+      filterField
+      filterType
+      serializedData
+      subFilter {
+        filterField
+        filterType
+        serializedData
+        subFilter {
+          filterField
+          filterType
+          serializedData
+        }
+      }
+    }
+    name
+    mailFilterID
+    clientside
+    encryptedSessionKey
+    encryptedByKey
+  }
+}
+
+query getAccountMailData($label: String!) {
+  unread(label: $label)
+  currentUser {
+    ...UserProfileOrgData
+    ...UserOrgPersonalTeamData
+    ...UserOrgEveryoneTeamData
+    userID
+    defaultEmailAlias
+    emailAliases
+    recoveryEmail
+    unverifiedRecoveryEmail
+  }
+}
+
+query getNumMailboxThreads($label: String!) {
+  numMailboxThreads(label: $label)
+}
+
+query getSilenceSenderSuggestions {
+  silenceSenderSuggestions {
+    silenceSenderDomains {
+      domain
+      senders {
+        sender
+        messageCount
+        totalBytes
+      }
+    }
+    silenceSenderIndividuals {
+      sender
+      messageCount
+      totalBytes
+    }
+  }
+}
+
+query getSilencedSenders {
+  silencedSenders {
+    silenceSenderDomains {
+      domain
+      senders {
+        sender
+        messageCount
+        totalBytes
+      }
+    }
+    silenceSenderIndividuals {
+      sender
+      messageCount
+      totalBytes
+    }
+  }
+}

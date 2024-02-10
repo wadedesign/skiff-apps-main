@@ -1,0 +1,132 @@
+mutation importEmlEmail($importRequest: ImportEmlEmailRequest!) {
+  importEmlEmail(importRequest: $importRequest)
+}
+
+mutation importMboxEmails($importMboxRequest: ImportMboxRequest!) {
+  importMboxEmails(importMboxRequest: $importMboxRequest)
+}
+
+mutation getMboxImportUrl($getImportUrlRequest: GetMboxImportUrlRequest!) {
+  getMboxImportUrl(getImportUrlRequest: $getImportUrlRequest) {
+    fileID
+    uploadData
+  }
+}
+
+mutation importGmailEmails($request: ImportGmailRequest!) {
+  importGmailEmails(request: $request)
+}
+
+mutation unsubscribeFromGmailImport {
+  unsubscribeFromGmailImport
+}
+
+query getGmailAutoImportStatus {
+  getGmailAutoImportStatus {
+    subscribed
+  }
+}
+
+mutation importOutlookEmails($code: String!, $state: String!) {
+  importOutlookEmails(code: $code, state: $state)
+}
+
+query getGoogleAuthURL($action: AuthAction) {
+  getGoogleAuthURL(action: $action)
+}
+
+query getOutlookAuthUrl($action: AuthAction) {
+  getOutlookAuthUrl(action: $action)
+}
+
+query getEmailAutoForwardingSettings {
+  emailAutoForwardingSettings {
+    gmail {
+      enabled
+    }
+    outlook {
+      enabled
+    }
+  }
+}
+
+mutation enableEmailAutoForwarding($request: EnableEmailAutoForwardingRequest!) {
+  enableEmailAutoForwarding(request: $request)
+}
+
+mutation disableEmailAutoForwarding($request: DisableEmailAutoForwardingRequest!) {
+  disableEmailAutoForwarding(request: $request)
+}
+
+query getEmailImportMeta($request: EmailImportMetaRequest!) {
+  emailImportMeta(request: $request) {
+    estimatedEmailCount
+  }
+}
+
+fragment ExternalEmailClientLabel on ExternalEmailClientLabel {
+  labelID
+  labelName
+
+  ... on ExternalEmailClientSystemLabel {
+    skiffSystemLabel
+  }
+
+  ... on ExternalEmailClientUserLabel {
+    skiffUserLabel {
+      labelID
+      labelName
+      color
+      variant
+    }
+  }
+}
+
+query getGmailLabels($request: GmailInboxOrganizationRequest!) {
+  gmailInboxOrganization(request: $request) {
+    labels {
+      ...ExternalEmailClientLabel
+    }
+  }
+}
+
+query getOutlookCategoriesAndFolders($request: OutlookInboxOrganizationRequest!) {
+  outlookInboxOrganization(request: $request) {
+    categories {
+      labelID
+      labelName
+      skiffUserLabel {
+        labelID
+        labelName
+        color
+        variant
+      }
+    }
+
+    folders {
+      ...ExternalEmailClientLabel
+    }
+  }
+}
+
+mutation enableGmailImport($request: EnableGmailImportRequest!) {
+  enableGmailImport(request: $request)
+}
+
+mutation enableOutlookImport($request: EnableOutlookImportRequest!) {
+  enableOutlookImport(request: $request)
+}
+
+mutation createImportSession($request: CreateImportSessionRequest!) {
+  createImportSession(request: $request) {
+    importID
+  }
+}
+
+query getImportStatus {
+  importStatus {
+    importID
+    importedEmailCount
+    status
+  }
+}
